@@ -1,11 +1,11 @@
 html {
-  font-size: 14px;
+    font-size: 16px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -13,10 +13,86 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: black;
+    color: #00ff19;
+    font-family: 'Courier New', Courier, serif;
 }
+
+a {
+    color: #00ff19;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: black;
+        background-color: #00ff19;
+    }
+
+    a:active {
+        color: black;
+        background-color: #00ff19;
+    }
+
+hr.hr-normal {
+    color: #00ff19;
+    height: 1px;
+    opacity: 1;
+}
+
+.text-gray {
+    color: #8f8f8f;
+}
+
+.text-green {
+    color: #00ff19;
+}
+
+.bg-green {
+    background-color: #00ff19;
+}
+
+.bg-gray {
+    background-color: #8f8f8f;
+}
+
+.border-green {
+    border-color: #00ff19;
+}
+
+.nav-border {
+    border: 2px #00ff19 solid;
+}
+
+.nav-border-bottom {
+    border-bottom: 2px #00ff19 solid;
+}
+
+.border-gray {
+    border-color: #8f8f8f;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 100px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    border: 7px solid transparent;
+    background-clip: content-box;
+    background-color: #00ff19;
+    border-radius: 10px;
+}
+
