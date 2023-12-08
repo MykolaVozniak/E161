@@ -3,29 +3,29 @@
 <PageTitle>E161</PageTitle>
 
 <div class="vh-100 nav-border">
-    <header>
+<header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm m-0 mb-3 p-0 nav-border-bottom">
             <div class="container d-flex align-items-center m-0 px-2 py-2">
                 <h3 class="m-0 p-0 ms-2 me-3">E161</h3>
-                <button class="navbar-toggler nav-border" @onclick="ToggleNavMenu">
+                <div class="navbar-toggler nav-border" @onclick="ToggleNavMenu">
                     <i class="text-green bi bi-list m-0 p-0"></i>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex">
+                </div>
+                <div class="navbar-collapse collapse @(collapseNavMenu ? "" : "show") d-sm-inline-flex">
                     <ul class="navbar-nav m-0 p-0">
                         <li class="nav-item mx-2">
-                            <NavLink href="/Index">Home</NavLink>
+                            <NavLink href="">Home</NavLink>
                         </li>
                         <li class="nav-item mx-2">
-                            <NavLink href="/About">About</NavLink>
+                            <NavLink href="about">About</NavLink>
                         </li>
                         <li class="nav-item mx-2">
-                            <NavLink href="/EncoderDecoder">Encoder-Decoder</NavLink>
+                            <NavLink href="encoder-decoder">Encoder-Decoder</NavLink>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-    </header>
+</header>
 
     <div class="container d-flex flex-column vh-75">
         <main role="main" class="h-100">
