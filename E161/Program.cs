@@ -1,3 +1,7 @@
+using E161.Data;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+
 namespace E161
 {
     public class Program
@@ -8,6 +12,8 @@ namespace E161
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddServerSideBlazor();
+            builder.Services.AddSingleton<WeatherForecastService>();
 
             var app = builder.Build();
 
@@ -20,13 +26,13 @@ namespace E161
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
-            app.MapRazorPages();
+            app.MapBlazorHub();
+            app.MapFallbackToPage("/_Host");
 
             app.Run();
         }
