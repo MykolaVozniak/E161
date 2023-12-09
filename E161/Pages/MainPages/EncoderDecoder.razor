@@ -1,0 +1,115 @@
+﻿@page "/encoder-decoder"
+@using E161.Data
+@inject IJSRuntime js
+@inject NavigationManager navManager
+
+<PageTitle>Encoder-Decoder</PageTitle>
+
+<div class="d-flex justify-content-center align-items-center my-4 py-5">
+    <div class="container col-md-6 col-sm-11 border-custom">
+        <form asp-page="EncoderDecoder" method="post" class="w-100">
+            <div class="form-group mx-3 my-3">
+                <p class="mb-2"> Chars field: </p>
+                <textarea @bind="chars" @oninput="CharsInput" class="form-control form-control-lg textarea-custom" id="chars" placeholder="@charsPlaceholder" rows="4" readonly="@isKeysActive"></textarea>
+            </div>
+
+            <div class="mb-0 pt-2 mt-4 d-flex align-items-center justify-content-center ">
+                <h1 class="bi bi-arrow-down my-0 pt-2 me-2"></h1>
+                    <button type="button" class="border-custom text-green btn-lg col-sm-8 col-md-3" @onclick="Convert">
+                    @if (isCharsActive)
+                    {
+                        <span>Encode</span>
+                    }
+                    else if (isKeysActive)
+                    {
+                        <span>Decode</span>
+                    }
+                    else
+                    {
+                        <span>Convert</span>
+                    }
+                </button>
+                <h1 class="bi bi-arrow-up my-0 pt-2 ms-2"></h1>
+            </div>
+
+            <div class="form-group mx-3 mb-3">
+                <p class="mb-2"> Key field: </p>
+                <textarea @bind="keys" @oninput="KeysInput" pattern="@keyArray" class="form-control form-control-lg textarea-custom" id="keys" placeholder="@keysPlaceholder" rows="4" readonly="@isCharsActive"></textarea>
+            </div>
+        </form>
+    </div>
+</div>
+
+<h1>@KC</h1>
+
+@code {
+
+    private void Convert()
+    {
+        Algorythm alg = new Algorythm();
+        if (isCharsActive)
+        {
+            keys = alg.Encode(chars);
+        }
+        else if (isKeysActive)
+        {
+            //nonr
+        }
+        else
+        {
+            //bor
+        }
+    }
+
+    private string keys = "";
+    private string chars = "";
+    private string KC = "";
+
+    private bool isKeysActive = false;
+    private bool isCharsActive = false;
+
+    private string charsPlaceholder = "Enter the Text...";
+    private string keysPlaceholder = "Enter the Code...";
+
+    char[] keyArray = "1234567890-*#()".ToCharArray();
+
+    private void CharsInput(ChangeEventArgs e)
+    {
+        chars = e.Value.ToString();
+        if (!string.IsNullOrEmpty(chars))
+        {
+            isCharsActive = true;
+            keysPlaceholder = "When you're ready, click the button...";
+        }
+        else
+        {
+            isCharsActive = false;
+            keysPlaceholder = "Enter the Code...";
+        }
+        UpdateKC();
+    }
+
+    private async Task KeysInput(ChangeEventArgs e)
+    {
+        keys = e.Value.ToString();
+        if (!string.IsNullOrEmpty(keys))
+        {
+            keys = keys;
+            await Task.Delay(5);
+            keys = new string(keys.Where(c => keyArray.Contains(c)).ToArray());
+            isKeysActive = true;
+            charsPlaceholder = "When you're ready, click the button...";
+        }
+        else
+        {
+            isKeysActive = false;
+            charsPlaceholder = "Enter the Text...";
+        }
+        UpdateKC();
+    }
+
+    private void UpdateKC()
+    {
+        KC = $"{keys} + {chars}";
+    }
+}

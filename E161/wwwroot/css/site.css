@@ -144,6 +144,11 @@ button {
     resize: none;
 }
 
+    .textarea-custom::placeholder {
+        color: #00ff19;
+        opacity: 75%;
+    }
+
     .textarea-custom:focus {
         border-color: #00ff19;
         background-color: black;
@@ -152,37 +157,37 @@ button {
         box-shadow: 0 0 0 2px #00ff19;
     }
 
-    .textarea-custom::placeholder {
+    .textarea-custom[readonly] {
+        border-color: #00ff19;
+        background-color: black;
         color: #00ff19;
-        opacity: 75%;
+        outline: none;
+        box-shadow: 0 0 0 0px;
+    }
+
+    .textarea-custom:disabled {
+        border-color: #00ff19;
+        background-color: black;
+        color: #00ff19;
+        outline: none;
+        box-shadow: 0 0 0 0px;
     }
 
 
 /* -------------------- blazor-original -------------------- */
 
-.valid.modified:not([type=checkbox]) {
-    outline: 1px solid red;
-}
-
-.invalid {
-    outline: 1px solid red;
-}
-
-.validation-message {
-    color: red;
-}
 
 #blazor-error-ui {
-    background: blue;
+    background: black;
     bottom: 0;
-    box-shadow: 0 -1px 2px red;
+    box-shadow: 0 -1px 2px #00ff19;
     display: none;
     left: 0;
     padding: 0.6rem 1.25rem 0.7rem 1.25rem;
     position: fixed;
     width: 100%;
     z-index: 1000;
-    color: red;
+    color: #00ff19;
 }
 
     #blazor-error-ui .dismiss {
@@ -190,7 +195,7 @@ button {
         position: absolute;
         right: 0.75rem;
         top: 0.5rem;
-        color: red;
+        color: #00ff19;
     }
 
 .blazor-error-boundary {
