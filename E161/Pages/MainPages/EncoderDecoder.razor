@@ -40,30 +40,27 @@
     </div>
 </div>
 
-<h1>@KC</h1>
-
 @code {
 
     private void Convert()
     {
-        Algorythm alg = new Algorythm();
+        Algorithm alg = new Algorithm();
         if (isCharsActive)
         {
             keys = alg.Encode(chars);
         }
         else if (isKeysActive)
         {
-            //nonr
+            chars = alg.Decode(keys);
         }
         else
         {
-            //bor
+            //none
         }
     }
 
     private string keys = "";
     private string chars = "";
-    private string KC = "";
 
     private bool isKeysActive = false;
     private bool isCharsActive = false;
@@ -85,8 +82,8 @@
         {
             isCharsActive = false;
             keysPlaceholder = "Enter the Code...";
+            keys = "";
         }
-        UpdateKC();
     }
 
     private async Task KeysInput(ChangeEventArgs e)
@@ -104,12 +101,8 @@
         {
             isKeysActive = false;
             charsPlaceholder = "Enter the Text...";
+            chars = "";
         }
-        UpdateKC();
     }
 
-    private void UpdateKC()
-    {
-        KC = $"{keys} + {chars}";
-    }
 }

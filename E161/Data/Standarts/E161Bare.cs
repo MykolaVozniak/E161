@@ -1,14 +1,14 @@
 ﻿namespace E161.Data.Standarts
 {
-    public class E161Bare
+    public class E161Bare : Standart
     {
-        public string Key1 { get; } = Data.Key1;
-
+        public override string Key2 => "abc2";
+        public override string Key3 => "def3";
+        public override string Key4 => "ghi4";
+        public override string Key5 => "jkl5";
+        public override string Key6 => "mno6";
+        public override string Key7 => "pqrs7";
+        public override string Key8 => "tuv8";
+        public override string Key9 => "wxyz9";
     }
 }
-
-
-//private static readonly string[] Summaries = new[]
-//       {
-//        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-//    };

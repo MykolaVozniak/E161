@@ -175,8 +175,6 @@ button {
 
 
 /* -------------------- blazor-original -------------------- */
-
-
 #blazor-error-ui {
     background: black;
     bottom: 0;
@@ -207,3 +205,4 @@ button {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
