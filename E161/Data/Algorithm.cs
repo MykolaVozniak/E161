@@ -11,10 +11,16 @@ namespace E161.Data
         public string Encode(string str)
         {
             var standart = new E161VLEnglish();
+            string encodedStr;
 
-            string encodedStr = EncodingPhase1(str, standart);
+            try {
+            encodedStr = EncodingPhase1(str, standart);
             encodedStr = EncodingPhase2(encodedStr, standart);
-
+            }
+            catch (Exception e)
+            {
+                encodedStr = "Error! Check that the input is correct.";
+            }
             return encodedStr;
         }
 
@@ -221,8 +227,15 @@ namespace E161.Data
         public string Decode(string str)
         {
             var standart = new E161VLEnglish();
-            string decodedStr = DecodingPhase1(str, standart);
-
+            string decodedStr;
+            try
+            {
+              decodedStr = DecodingPhase1(str, standart);
+            }
+            catch (Exception e)
+            {
+                decodedStr = "Error! Check that the input is correct.";
+            }
             return decodedStr;
         }
 
@@ -363,7 +376,7 @@ namespace E161.Data
                         {
                             n++;
 
-                            if (i < chars.Length - 1) //i,i,charLen
+                            if (i < chars.Length - 1)
                             {
                                 if (!char.IsDigit(chars[i + 1]) || chars[i] != chars[i + 1] || i + 1 == chars.Length)
                                 {
@@ -378,6 +391,19 @@ namespace E161.Data
                                     }
                                     isRegisterOpen = false;
                                 }
+                            }
+                            else if(i == chars.Length - 1)
+                            {
+                                char charValue = isUpperCaseOpen ? char.ToUpper(standart.Assignments[arrayChar][n - 1]) : standart.Assignments[arrayChar][n - 1];
+                                if (isUnicodeOpen)
+                                {
+                                    unicodeBuilder.Append(charValue);
+                                }
+                                else
+                                {
+                                    decodedBuilder2.Append(charValue);
+                                }
+                                isRegisterOpen = false;
                             }
                         }
                     }
