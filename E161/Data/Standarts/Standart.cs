@@ -7,6 +7,8 @@
         public string Key0 => " 0\n";
 
         public string KeyChars => "0123456789-()#*";
+        public string KeyCharsWithoutDirectCase => "0123456789-#*";
+        public string KeyRoleChars => "-()#*";
 
         public abstract string Key2 { get; }
         public abstract string Key3 { get; }

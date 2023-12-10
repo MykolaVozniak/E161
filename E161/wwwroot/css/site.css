@@ -151,10 +151,11 @@ button {
 
     .textarea-custom:focus {
         border-color: #00ff19;
-        background-color: black;
+        background-color: rgba(0, 255, 25, 0.1);
         color: #00ff19;
         outline: none;
         box-shadow: 0 0 0 2px #00ff19;
+        color: #00ff19;
     }
 
     .textarea-custom[readonly] {
