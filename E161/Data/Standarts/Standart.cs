@@ -2,6 +2,8 @@
 {
     public abstract class Standart
     {
+        public abstract string Name { get; }
+
         //Language-independent keys
         public string Key1 => ".,?!1@'\"-()/:_;+&%*=<>€£$¥¤[]{}\\~^¿¡§#"; //ABCDEF
         public string Key0 => " 0\n";
@@ -21,5 +23,10 @@
 
         public string[] Assignments => new[] { Key0, Key1, Key2, Key3, Key4, Key5, Key6, Key7, Key8, Key9 };
 
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

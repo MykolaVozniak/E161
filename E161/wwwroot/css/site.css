@@ -112,11 +112,50 @@ button {
         background-color: #00ff19;
     }
 
-/* ---------------------- scrollbar ---------------------- */
-/* width */
-::-webkit-scrollbar {
-    width: 20px;
+
+    /*----------------- square -------------------*/
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 100px;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-align: center;
 }
+    select:active {
+        border-color: #00ff19;
+        outline: none;
+        box-shadow: 0 0 0 2px #00ff19;
+    }
+    select option {
+        direction: rtl;
+        color: #00ff19;
+        background-color: black;
+    }
+
+.btn-square {
+    width: 100px;
+    height: 100px;
+    color: #00ff19;
+    text-decoration: none;
+}
+
+    .btn-square:hover {
+        color: black;
+        background-color: #00ff19;
+    }
+    .btn-square:active {
+        color: black;
+        background-color: #00ff19;
+    }
+    /* ---------------------- scrollbar ---------------------- */
+    /* width */
+    ::-webkit-scrollbar {
+        width: 20px;
+    }
 
 /* Track */
 ::-webkit-scrollbar-track {

@@ -2,6 +2,7 @@
 {
     public class E161VLEnglish : Standart
     {
+        public override string Name => "E161-Advanced Englis";
         public override string Key2 => "abc2àâæç";
         public override string Key3 => "def3éèêë";
         public override string Key4 => "ghi4îï";
@@ -10,5 +11,6 @@
         public override string Key7 => "pqrs7";
         public override string Key8 => "tuv8û";
         public override string Key9 => "wxyz9ŵŷ";
+
     }
 }

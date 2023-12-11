@@ -2,6 +2,7 @@
 {
     public class E161VLUkrainian : Standart
     {
+        public override string Name => "E161-Advanced Ukrainian";
         public override string Key2 => "абвгґ2abc";
         public override string Key3 => "деєжзё3def";
         public override string Key4 => "иіїйкл4ghi";

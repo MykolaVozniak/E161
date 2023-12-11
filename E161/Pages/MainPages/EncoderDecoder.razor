@@ -1,42 +1,56 @@
 ﻿@page "/encoder-decoder"
 @using E161.Data
+@using E161.Data.Standarts
 @inject IJSRuntime js
 @inject NavigationManager navManager
 
 <PageTitle>Encoder-Decoder</PageTitle>
 
 <div class="d-flex justify-content-center align-items-center my-4 py-5">
-    <div class="container col-md-6 col-sm-11 border-custom">
-        <form asp-page="EncoderDecoder" method="post" class="w-100">
-            <div class="form-group mx-3 my-3">
-                <p class="mb-2"> Chars field: </p>
-                <textarea @bind="chars" @oninput="CharsInput" class="form-control form-control-lg textarea-custom @(isCharsActive? "bg-green-10" : "")" id="chars" placeholder="@charsPlaceholder" rows="4" readonly="@isKeysActive"></textarea>
+    <div class="col-md-8 col-sm-11">
+        <div class="row m-0 p-0">
+            <div class="container col-md-2 col-sm-11 d-flex flex-md-column justify-content-between">
+                <select @bind="choosedStandartString" class="border-custom text-green my-3 p-1" title="Click to change encryption system">
+                    @for (int i = 0; i < standartList.Length; i++)
+                    {
+                        <option value="@standartList[i]"><p class="p-0 m-0">@standartList[i].Name</p></option>
+                    }
+                </select>
+                <button type="button" class="btn-square border-custom text-green my-3" title="How it works?" onclick="window.open('/about', '_blank')"> <h1 class="display-1 m-0 p-0">?</h1></button>
+                <button type="button" class="btn-square border-custom text-green my-3" title="Clear all fields" onclick="@ClearFields"><h1 class="display-2 m-0 p-0">C</h1></button>
             </div>
+            <div class="container col-md-9 col-sm-11 border-custom">
+                <form asp-page="EncoderDecoder" method="post" class="w-100">
+                    <div class="form-group mx-3 my-3">
+                        <p class="mb-2"> Chars field: </p>
+                        <textarea @bind="chars" @oninput="CharsInput" class="form-control form-control-lg textarea-custom @(isCharsActive? "bg-green-10" : "")" id="chars" placeholder="@charsPlaceholder" rows="4" readonly="@isKeysActive"></textarea>
+                    </div>
+                    <div class="mb-0 pt-2 mt-4 d-flex align-items-center justify-content-center ">
+                        <h1 class="bi bi-arrow-down my-0 pt-2 me-2"></h1>
+                        <button type="button" class="border-custom text-green btn-lg col-sm-8 col-md-3" @onclick="Convert">
+                            @if (isCharsActive)
+                            {
+                                <span>Encode</span>
+                            }
+                            else if (isKeysActive)
+                            {
+                                <span>Decode</span>
+                            }
+                            else
+                            {
+                                <span>Convert</span>
+                            }
+                        </button>
+                        <h1 class="bi bi-arrow-up my-0 pt-2 ms-2"></h1>
+                    </div>
 
-            <div class="mb-0 pt-2 mt-4 d-flex align-items-center justify-content-center ">
-                <h1 class="bi bi-arrow-down my-0 pt-2 me-2"></h1>
-                    <button type="button" class="border-custom text-green btn-lg col-sm-8 col-md-3" @onclick="Convert">
-                    @if (isCharsActive)
-                    {
-                        <span>Encode</span>
-                    }
-                    else if (isKeysActive)
-                    {
-                        <span>Decode</span>
-                    }
-                    else
-                    {
-                        <span>Convert</span>
-                    }
-                </button>
-                <h1 class="bi bi-arrow-up my-0 pt-2 ms-2"></h1>
+                    <div class="form-group mx-3 mb-3">
+                        <p class="mb-2"> Key field: </p>
+                        <textarea @bind="keys" @oninput="KeysInput" pattern="@keyArray" class="form-control form-control-lg textarea-custom @(isKeysActive? "bg-green-10" : "")" id="keys" placeholder="@keysPlaceholder" rows="4" readonly="@isCharsActive"></textarea>
+                    </div>
+                </form>
             </div>
-
-            <div class="form-group mx-3 mb-3">
-                <p class="mb-2"> Key field: </p>
-                <textarea @bind="keys" @oninput="KeysInput" pattern="@keyArray" class="form-control form-control-lg textarea-custom @(isKeysActive? "bg-green-10" : "")" id="keys" placeholder="@keysPlaceholder" rows="4" readonly="@isCharsActive"></textarea>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -47,16 +61,29 @@
         Algorithm alg = new Algorithm();
         if (isCharsActive)
         {
-            keys = alg.Encode(chars);
+            keys = alg.Encode(chars, choosedStandart);
         }
         else if (isKeysActive)
         {
-            chars = alg.Decode(keys);
+            chars = alg.Decode(keys, choosedStandart);
         }
         else
         {
             //none
         }
+    }
+
+    private Standart[] standartList = {
+        new E161VLEnglish(),
+        new E161VLUkrainian(),
+    };
+
+    private string choosedStandartString;
+
+    private Standart choosedStandart
+    {
+        get => standartList.FirstOrDefault(s => s.Name == choosedStandartString);
+        set => choosedStandartString = value?.Name;
     }
 
     private string keys = "";
@@ -86,6 +113,15 @@
         }
     }
 
+    private void ClearFields()
+    {
+        keys = "";
+        chars = "";
+        isCharsActive = false;
+        isKeysActive = false;
+        keysPlaceholder = charsPlaceholder = "Enter the Code...";
+    }
+
     private async Task KeysInput(ChangeEventArgs e)
     {
         keys = e.Value.ToString();
@@ -110,6 +146,11 @@
             charsPlaceholder = "Enter the Text...";
             chars = "";
         }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        choosedStandart = new E161VLEnglish();
     }
 
 }

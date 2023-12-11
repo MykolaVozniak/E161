@@ -8,9 +8,8 @@ namespace E161.Data
 {
     public class Algorithm
     {
-        public string Encode(string str)
+        public string Encode(string str, Standart standart)
         {
-            var standart = new E161VLEnglish();
             string encodedStr;
 
             try {
@@ -224,9 +223,8 @@ namespace E161.Data
             return resultString;
         }
 
-        public string Decode(string str)
+        public string Decode(string str, Standart standart)
         {
-            var standart = new E161VLEnglish();
             string decodedStr;
             try
             {
