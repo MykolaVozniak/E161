@@ -10,7 +10,7 @@
         <form asp-page="EncoderDecoder" method="post" class="w-100">
             <div class="form-group mx-3 my-3">
                 <p class="mb-2"> Chars field: </p>
-                <textarea @bind="chars" @oninput="CharsInput" class="form-control form-control-lg textarea-custom" id="chars" placeholder="@charsPlaceholder" rows="4" readonly="@isKeysActive"></textarea>
+                <textarea @bind="chars" @oninput="CharsInput" class="form-control form-control-lg textarea-custom @(isCharsActive? "bg-green-10" : "")" id="chars" placeholder="@charsPlaceholder" rows="4" readonly="@isKeysActive"></textarea>
             </div>
 
             <div class="mb-0 pt-2 mt-4 d-flex align-items-center justify-content-center ">
@@ -34,7 +34,7 @@
 
             <div class="form-group mx-3 mb-3">
                 <p class="mb-2"> Key field: </p>
-                <textarea @bind="keys" @oninput="KeysInput" pattern="@keyArray" class="form-control form-control-lg textarea-custom" id="keys" placeholder="@keysPlaceholder" rows="4" readonly="@isCharsActive"></textarea>
+                <textarea @bind="keys" @oninput="KeysInput" pattern="@keyArray" class="form-control form-control-lg textarea-custom @(isKeysActive? "bg-green-10" : "")" id="keys" placeholder="@keysPlaceholder" rows="4" readonly="@isCharsActive"></textarea>
             </div>
         </form>
     </div>
@@ -94,8 +94,15 @@
             keys = keys;
             await Task.Delay(5);
             keys = new string(keys.Where(c => keyArray.Contains(c)).ToArray());
-            isKeysActive = true;
-            charsPlaceholder = "When you're ready, click the button...";
+            if (string.IsNullOrEmpty(keys))
+            {
+                isKeysActive = false;
+            }
+            else
+            {
+                isKeysActive = true;
+                charsPlaceholder = "When you're ready, click the button...";
+            }
         }
         else
         {

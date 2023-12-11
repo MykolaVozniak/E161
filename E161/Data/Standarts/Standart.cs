@@ -3,7 +3,7 @@
     public abstract class Standart
     {
         //Language-independent keys
-        public string Key1 => ".,?!1@'\"-()/:_;+&%*=<>€£$¥¤[]{}\\~^¿¡§#ABCDEF";
+        public string Key1 => ".,?!1@'\"-()/:_;+&%*=<>€£$¥¤[]{}\\~^¿¡§#"; //ABCDEF
         public string Key0 => " 0\n";
 
         public string KeyChars => "0123456789-()#*";

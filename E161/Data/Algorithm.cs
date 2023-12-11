@@ -353,7 +353,7 @@ namespace E161.Data
                         arrayChar = (int)Char.GetNumericValue(chars[i]);
                         n++;
 
-                        if (i < chars.Length - 1) //i,i,charLen
+                        if (i < chars.Length - 1) 
                         {
                             if (!char.IsDigit(chars[i + 1]) || chars[i] != chars[i + 1] || i + 1 == chars.Length)
                             {
@@ -368,6 +368,19 @@ namespace E161.Data
                                 }                                
                                 isRegisterOpen = false;
                             }
+                        }
+                        else if(i == chars.Length - 1)
+                        {
+                            char charValue = isUpperCaseOpen ? char.ToUpper(standart.Assignments[arrayChar][n - 1]) : standart.Assignments[arrayChar][n - 1];
+                            if (isUnicodeOpen)
+                            {
+                                unicodeBuilder.Append(charValue);
+                            }
+                            else
+                            {
+                                decodedBuilder2.Append(charValue);
+                            }
+                            isRegisterOpen = false;
                         }
                     }
                     else if (isRegisterOpen)
