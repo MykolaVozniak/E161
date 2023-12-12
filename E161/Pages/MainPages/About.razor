@@ -1,9 +1,84 @@
 ﻿@page "/about"
+@using E161.Data
+@using E161.Data.Standarts
 
 <PageTitle>About</PageTitle>
 
-<h1>Hello, about!</h1>
+<div class="container-fluid col-8 py-5">
+    <h1 class="text-center">Hello, user!</h1>
+    <h1 class="text-center">---</h1>
+    <p>This page describes the basic syntax and logic of the fictitious encryption standard E161-Code, which is based on the logic of the E161 recommendation, the ETSI ES 202 130 V2.1.2 standard, and the author's user experience.</p>
+    
+    <h3 class="text-center mt-5">Terminology</h3>
+    <h3 class="text-center">---</h3>
+    <p>The Signal is a linguistic unit of the E161-Code encryption system. Signal sequences and combinations are capable of encoding specific characters.</p>
+    <p>The Symbol is a letter, number, punctuation mark or other graphic symbol, which is represented by a signals, a sequence of signals or their combinations.</p>
+    <p>Cryptographic key - in this encryption system, the key is the keyboard layout of the push-button telephone according to the ETSI ES 202 130 V2.1.2 standard, changed in some places due to the peculiarities of the E161-Code.</p>
 
+    <h3 class="text-center mt-5">E161-Code alphabet</h3>
+    <h3 class="text-center">---</h3>
+    <p>1. Graphic signals: "1", "2, "3", "4", "5", "6", "7", "8", "9", "0"</p>
+    <p>2. Control signals: "*", "#", "(", ")", "-"</p>
+    <p>A sequence of graphic signals represent a certain symbol.</p>
+    <p>Control signals change the behavior of graphic signals.</p>
+
+    <h3 class="text-center mt-5">Signals "1" and "0"</h3>
+    <h3 class="text-center">---</h3>
+    <p>The values of signals 1" and "0" are common to all existing cryptographic keys.</p>
+    <p>"1" = ".,?!1@@'\"-()/:_;+&%*=&lt;&gt;€£$¥¤[]{}\~^¿¡§#"</p>
+    <p>"0" = " 0↵" (space, 0, new line)</p>
+
+    <h3 class="text-center mt-5">Signals "2" - "9"</h3>
+    <h3 class="text-center">---</h3>
+    <p>Signal values from 2 to 9 depend on the selected cryptographic key.</p>
+    @for (int i = 0; i < standartList.Length; i++)
+    {
+        <p>@standartList[i].Name (@standartList[i].Details)</p>
+        for (int j = 2; j < standartList[i].Assignments.Length; j++)
+        {
+            <p>"@j" = "@standartList[i].Assignments[j]"</p>
+        }
+    }
+
+    <h3 class="text-center mt-5">Some Examples</h3>
+    <h3 class="text-center">---</h3>
+    <p>(E161-Code English, Decoding):</p>
+    <p>"9" -> "w", "99" -> "x", "999" -> "y", "9999" -> "z", "99999" -> "9", "999999" -> "ŵ",</p>
+    <p>"9-44-33-66-0-7-444-4-7777-0-333-555-999" -> "when pigs fly",</p>
+    <p>"555-666-777-33-6-0-444-7-7777-88-6-0-3-666-555-666-777" -> "lorem ipsum dolor",</p>
+    <p>"333333333333333333" -> Error, and "11111111111111111" -> "&"</p>
+
+    <h3 class="text-center mt-5">Delimiter signal "-"</h3>
+    <h3 class="text-center">---</h3>
+    <p>Serves to force separation of signal sequences where necessary, but a good rule of thumb would be to use this signal between each signal sequence.</p>
+    <p>Example (E161-Code English, Decoding):</p>
+    <p>"7777" -> "s", but "77-77" -> "qq", and "7-777" -> "rp"</p>
+
+    <h3 class="text-center mt-5">Upper case signal "#"</h3>
+    <h3 class="text-center">---</h3>
+    <p>Similar to the "#" button on a push-button phone, which changed case, this signal works similarly, wrap the desired signals on both sides with a "#" signal to bring them to upper case.</p>
+    <p>Example (E161-Code English, Decoding):</p>
+    <p>"#44#-33-555-555-666-0-#9-666-777-555-3#" -> "Hello WORLD"</p>
+
+    <h3 class="text-center mt-5">Direct case signals "(" and ")"</h3>
+    <h3 class="text-center">---</h3>
+    <p>Holding down a button on a push-button phone outputted the direct value of that button. "(" and ")" was used to indicate this function in E161-Code, which refers to the recurring decimal in some countries.</p>
+    <p>Signals enclosed in parentheses will be output directly, without decoding.</p>
+    <p>Example (E161-Code English, Decoding):</p>
+    <p>"333-4" -> "fg", but "(333-4)" -> "333-4"</p>
+
+    <h3 class="text-center mt-5">Unicode case signal "*"</h3>
+    <h3 class="text-center">---</h3>
+    <p>On push-button phones, the asterisk usually opened a separate window with some Unicode characters, including emoji.</p>
+    <p>Here, a sequence of encoded characters wrapped on both sides by the "*" character will be treated as a hexadecimal Unicode character number and will be decoded as a Unicode character with that number.</p>
+    <p>Example (E161-Code English, Decoding):</p>
+    <p>"#3-(83)-3#-#3-33-(01)#" -> "D83DDE01", but "*#3-(83)-3#-#3-33-(01)#*" -> "😁"</p>
+
+
+</div>
 @code {
-
+    private Standart[] standartList = {
+        new E161VLEnglish(),
+        new E161VLUkrainian(),
+    };
 }

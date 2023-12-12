@@ -23,7 +23,7 @@
                 <form asp-page="EncoderDecoder" method="post" class="w-100">
                     <div class="form-group mx-3 my-3">
                         <p class="mb-2"> Chars field: </p>
-                        <textarea @bind="chars" @oninput="CharsInput" class="form-control form-control-lg textarea-custom @(isCharsActive? "bg-green-10" : "")" id="chars" placeholder="@charsPlaceholder" rows="4" readonly="@isKeysActive"></textarea>
+                        <textarea @bind="chars" @oninput="CharsInput" class="form-control form-control-lg textarea-custom @(isCharsActive? "bg-green-10" : "")" id="chars" placeholder="@charsPlaceholder" rows="4" readonly="@isSignalsActive"></textarea>
                     </div>
                     <div class="mb-0 pt-2 mt-4 d-flex align-items-center justify-content-center ">
                         <h1 class="bi bi-arrow-down my-0 pt-2 me-2"></h1>
@@ -32,7 +32,7 @@
                             {
                                 <span>Encode</span>
                             }
-                            else if (isKeysActive)
+                            else if (isSignalsActive)
                             {
                                 <span>Decode</span>
                             }
@@ -45,8 +45,8 @@
                     </div>
 
                     <div class="form-group mx-3 mb-3">
-                        <p class="mb-2"> Key field: </p>
-                        <textarea @bind="keys" @oninput="KeysInput" pattern="@keyArray" class="form-control form-control-lg textarea-custom @(isKeysActive? "bg-green-10" : "")" id="keys" placeholder="@keysPlaceholder" rows="4" readonly="@isCharsActive"></textarea>
+                        <p class="mb-2"> Signal field: </p>
+                        <textarea @bind="signals" @oninput="SignalsInput" pattern="@signalArray" class="form-control form-control-lg textarea-custom @(isSignalsActive? "bg-green-10" : "")" id="signals" placeholder="@signalsPlaceholder" rows="4" readonly="@isCharsActive"></textarea>
                     </div>
                 </form>
             </div>
@@ -61,11 +61,11 @@
         Algorithm alg = new Algorithm();
         if (isCharsActive)
         {
-            keys = alg.Encode(chars, choosedStandart);
+            signals = alg.Encode(chars, choosedStandart);
         }
-        else if (isKeysActive)
+        else if (isSignalsActive)
         {
-            chars = alg.Decode(keys, choosedStandart);
+            chars = alg.Decode(signals, choosedStandart);
         }
         else
         {
@@ -86,16 +86,16 @@
         set => choosedStandartString = value?.Name;
     }
 
-    private string keys = "";
+    private string signals = "";
     private string chars = "";
 
-    private bool isKeysActive = false;
+    private bool isSignalsActive = false;
     private bool isCharsActive = false;
 
     private string charsPlaceholder = "Enter the Text...";
-    private string keysPlaceholder = "Enter the Code...";
+    private string signalsPlaceholder = "Enter the Code...";
 
-    char[] keyArray = "1234567890-*#()".ToCharArray();
+    char[] signalArray = "1234567890-*#()".ToCharArray();
 
     private void CharsInput(ChangeEventArgs e)
     {
@@ -103,46 +103,47 @@
         if (!string.IsNullOrEmpty(chars))
         {
             isCharsActive = true;
-            keysPlaceholder = "When you're ready, click the button...";
+            signalsPlaceholder = "When you're ready, click the button...";
         }
         else
         {
             isCharsActive = false;
-            keysPlaceholder = "Enter the Code...";
-            keys = "";
+            signalsPlaceholder = "Enter the Code...";
+            signals = "";
         }
     }
 
     private void ClearFields()
     {
-        keys = "";
+        signals = "";
         chars = "";
         isCharsActive = false;
-        isKeysActive = false;
-        keysPlaceholder = charsPlaceholder = "Enter the Code...";
+        isSignalsActive = false;
+        signalsPlaceholder = "Enter the Code...";
+        charsPlaceholder = "Enter the Text...";
     }
 
-    private async Task KeysInput(ChangeEventArgs e)
+    private async Task SignalsInput(ChangeEventArgs e)
     {
-        keys = e.Value.ToString();
-        if (!string.IsNullOrEmpty(keys))
+        signals = e.Value.ToString();
+        if (!string.IsNullOrEmpty(signals))
         {
-            keys = keys;
+            signals = signals;
             await Task.Delay(5);
-            keys = new string(keys.Where(c => keyArray.Contains(c)).ToArray());
-            if (string.IsNullOrEmpty(keys))
+            signals = new string(signals.Where(c => signalArray.Contains(c)).ToArray());
+            if (string.IsNullOrEmpty(signals))
             {
-                isKeysActive = false;
+                isSignalsActive = false;
             }
             else
             {
-                isKeysActive = true;
+                isSignalsActive = true;
                 charsPlaceholder = "When you're ready, click the button...";
             }
         }
         else
         {
-            isKeysActive = false;
+            isSignalsActive = false;
             charsPlaceholder = "Enter the Text...";
             chars = "";
         }

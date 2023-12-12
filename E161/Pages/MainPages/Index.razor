@@ -1,14 +1,30 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
 
 <PageTitle>Home</PageTitle>
 
-<div class="d-flex align-items-center justify-content-center " style=" height: 80vh;">
-    <div class="container">
-        <h1 class="display-1">What if</h1>
-        <h2 class="animatedText">the principle of a</h2>
-        <h2 class="animatedText">push-button phone</h2>
-        <h2 class="animatedText">became the basis of</h2>
-        <h2 class="animatedText">some kind of</h2>
-        <h2 class="animatedText">encryption system?</h2>
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+        <div class="my-5 py-5">
+            <h1 class="display-1">What if</h1>
+            <h2 class="animatedText">the principle of a</h2>
+            <h2 class="animatedText">push-button phone</h2>
+            <h2 class="animatedText">became the basis of</h2>
+            <h2 class="animatedText">some kind of</h2>
+            <h2 class="animatedText">encryption system?</h2>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+        <button type="button" class="border-custom text-green btn-lg col-sm-8 col-md-3 w-75 my-5 py-5" @onclick="NavigateToCoder">
+                <h1>Give it a try!</h1>
+            </button>
     </div>
 </div>
+
+
+@code {
+    private void NavigateToCoder()
+    {
+        NavigationManager.NavigateTo("/encoder-decoder");
+    }
+}

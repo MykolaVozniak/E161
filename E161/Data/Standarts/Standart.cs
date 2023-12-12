@@ -4,6 +4,7 @@
     {
         public abstract string Name { get; }
 
+        public abstract string Details { get; }
         //Language-independent keys
         public string Key1 => ".,?!1@'\"-()/:_;+&%*=<>€£$¥¤[]{}\\~^¿¡§#"; //ABCDEF
         public string Key0 => " 0\n";
