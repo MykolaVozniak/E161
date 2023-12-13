@@ -33,7 +33,7 @@ namespace E161.Data
             for (int i = 0; i < str.Length; i++)
             {
 
-                if (standart.KeyCharsWithoutDirectCase.Contains(str[i]) && !isDirectCaseOpen)
+                if (standart.SignalCharsWithoutDirectCase.Contains(str[i]) && !isDirectCaseOpen)
                 {
                     isDirectCaseOpen = true;
 
@@ -53,7 +53,7 @@ namespace E161.Data
                         encodedBuilder.Append('(');
                     }
                 }
-                else if (!standart.KeyCharsWithoutDirectCase.Contains(str[i]) && isDirectCaseOpen)
+                else if (!standart.SignalCharsWithoutDirectCase.Contains(str[i]) && isDirectCaseOpen)
                 {
                     isDirectCaseOpen = false;
                     encodedBuilder.Append(")-");
@@ -106,9 +106,9 @@ namespace E161.Data
 
                 if (encodedBuilder.Length > 0 && i < str.Length-1)
                 {
-                    if (!standart.KeyChars.Contains(encodedBuilder[encodedBuilder.Length - 1]))
+                    if (!standart.SignalChars.Contains(encodedBuilder[encodedBuilder.Length - 1]))
                     {
-                        if (standart.KeyChars.Contains(str[i + 1]))
+                        if (standart.SignalChars.Contains(str[i + 1]))
                         {
                             encodedBuilder.Append('-');
                         }
@@ -149,7 +149,7 @@ namespace E161.Data
 
                 for (int j = 0; j < standart.Assignments.Length; j++)
                 {
-                    if (standart.Assignments[j].Contains(str[i]) && !standart.KeyChars.Contains(str[i]))
+                    if (standart.Assignments[j].Contains(str[i]) && !standart.SignalChars.Contains(str[i]))
                     {
                         if (isUnicodeOpen)
                         {
@@ -167,7 +167,7 @@ namespace E161.Data
                         }
                         j = standart.Assignments.Length;
                     }
-                    else if (standart.KeyChars.Contains(str[i]))
+                    else if (standart.SignalChars.Contains(str[i]))
                     {
                         if (isUnicodeOpen && str[i] != '-')
                         {
@@ -181,7 +181,7 @@ namespace E161.Data
                         encodedBuilder.Append(str[i]);
                         j = standart.Assignments.Length;
                     }
-                    else if (!standart.Assignments[j].Contains(str[i]) && !standart.KeyChars.Contains(str[i]))
+                    else if (!standart.Assignments[j].Contains(str[i]) && !standart.SignalChars.Contains(str[i]))
                     {
                         if (history == 9 && !isUnicodeOpen)
                         {
