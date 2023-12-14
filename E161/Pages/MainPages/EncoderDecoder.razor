@@ -29,7 +29,7 @@
                     </div>
                     <div class="mb-0 pt-2 mt-4 d-flex align-items-center justify-content-center ">
                         <h1 class="bi bi-arrow-down my-0 pt-2 me-2"></h1>
-                        <button type="button" class="border-custom text-green btn-lg col-sm-8 col-md-3" @onclick="Convert">
+                        <button type="button" class="border-custom text-green btn-lg col-sm-8 col-md-3 text " @onclick="Convert">
                             @if (isCharsActive)
                             {
                                 <span>Encode</span>
@@ -102,8 +102,7 @@
 
     private void CharsInput(ChangeEventArgs e)
     {
-        chars = e.Value.ToString();
-        if (!string.IsNullOrEmpty(chars))
+        if (!string.IsNullOrEmpty(e.Value.ToString()))
         {
             isCharsActive = true;
             signalsPlaceholder = "When you're ready, click the button...";
@@ -128,15 +127,22 @@
 
     private async Task SignalsInput(ChangeEventArgs e)
     {
-        signals = e.Value.ToString();
-        if (!string.IsNullOrEmpty(signals))
+        if (!string.IsNullOrEmpty(e.Value.ToString()))
         {
-            signals = signals;
-            await Task.Delay(5);
-            signals = new string(signals.Where(c => signalArray.Contains(c)).ToArray());
-            if (string.IsNullOrEmpty(signals))
+            if (e.Value.ToString().Any(c => !signalArray.Contains(c)))
             {
-                isSignalsActive = false;
+                signals = e.Value.ToString();
+                await Task.Delay(1);
+                signals = new string(signals.Where(c => signalArray.Contains(c)).ToArray());
+                if (string.IsNullOrEmpty(signals))
+                {
+                    isSignalsActive = false;
+                }
+                else
+                {
+                    isSignalsActive = true;
+                    charsPlaceholder = "When you're ready, click the button...";
+                }
             }
             else
             {
